@@ -15,14 +15,14 @@ resource "openstack_networking_port_v2" "sriov_bdn" {
   }
 }
 
-resource "openstack_networking_port_v2" "sriov_lln" {
-  name           = "lln-${var.name}"
-  network_id     = data.openstack_networking_network_v2.lln.id
-  admin_state_up = "true"
-  binding {
-    vnic_type = "direct"
-  }
-}
+# resource "openstack_networking_port_v2" "sriov_lln" {
+#   name           = "lln-${var.name}"
+#   network_id     = data.openstack_networking_network_v2.lln.id
+#   admin_state_up = "true"
+#   binding {
+#     vnic_type = "direct"
+#   }
+# }
 
 resource "openstack_compute_instance_v2" "sriov_test" {
   name            = var.name
@@ -35,9 +35,9 @@ resource "openstack_compute_instance_v2" "sriov_test" {
     name = "ilab"
   }
 
-  network {
-    port = openstack_networking_port_v2.sriov_lln.id
-  }
+  # network {
+  #   port = openstack_networking_port_v2.sriov_lln.id
+  # }
 
   network {
     port = openstack_networking_port_v2.sriov_bdn.id
